@@ -1,0 +1,71 @@
+<div
+  class="ui-datepicker"
+  #trigger
+  (click)="toggleDropdown(trigger)"
+  [ngStyle]="{
+    cursor: isDisabled() ? '' : 'pointer',
+    pointerEvents: isDisabled() ? 'none' : ''
+  }"
+  [ngClass]="[
+    value() ? 'non-empty' : '',
+    isDisabled() ? 'disabled' : ''
+  ]"
+>
+  <div 
+    class="label-wrapper"
+    [ngStyle]="{
+      minHeight: fontInputSize() * 0.8 + 'px'
+    }"
+  >
+    <label 
+      class="ui-datepicker-label"
+      [ngStyle]="{
+        fontSize: fontInputSize() * 0.8 + 'px'
+      }"
+    >
+      {{ labelName() }}@if (isRequired()) {<span>*</span> }
+    </label>
+  </div>
+  <div class="value-wrapper">
+    <div 
+      class="value"
+      [ngStyle]="{
+        fontSize: fontInputSize() + 'px',
+        minHeight: 22.67 + 'px'
+      }"
+    >
+      
+    </div>
+    <!-- <icon-arrow-down 
+      class="icon-arrow-down"
+    /> -->
+  </div>
+</div>
+
+<ng-template #dropdown>
+  <div class="dropdown-panel">
+    <div class="calendar">
+      @for (w of lang().weeks; let index = $index; track index) {
+        <div 
+          class="calendar-label">{{ w }}</div>
+      }
+      @for (w of monthWeeks(); let index = $index; track index) {
+        @for (d of w; let indexY = $index; track indexY) {
+          <div 
+            class="calendar-cell"
+            [ngStyle]="{
+              background: d ? '' : 'none',
+              cursor: d ? '' : 'default'
+            }"
+            [ngClass]="[
+              ( d | date: 'dd') === (value() && (value() | date: 'dd')) ? 'selected' : '',
+            ]"
+            (click)="d && setDate(d)"
+          >
+            {{ d ? ( d | date: 'd') : '' }}
+          </div>
+        }
+      }
+    </div>
+  </div>
+</ng-template>

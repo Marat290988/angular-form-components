@@ -1,0 +1,17 @@
+.container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-wrapper {
+    max-width: 300px;
+    width: 100%;
+  }
+}

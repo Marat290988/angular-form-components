@@ -1,0 +1,54 @@
+<div 
+  class="ui-input"
+  [ngClass]="[
+    focused() ? 'focused' : '',
+    value() ? 'non-empty' : '',
+    hasError() ? 'has-error' : '',
+    isTouched() ? 'touched' : '',
+    isDisabled() ? 'disabled' : ''
+  ]"
+>
+  @if (labelName()) {
+    <div
+      [ngStyle]="{
+        minHeight: fontInputSize() * 0.8 + 'px'
+      }"
+    >
+      <label 
+        class="ui-input-label"
+        for="{{ inputId }}"
+        [ngStyle]="{
+          fontSize: fontInputSize() * 0.8 + 'px'
+        }"
+      >
+        {{ labelName() }}@if (isRequired()) {<span>*</span> }
+      </label>
+    </div>
+  }
+  <div
+    class="ui-input-wrapper"
+  >
+    <input 
+      type="text"
+      id="{{ inputId }}"
+      [ngStyle]="{
+        fontSize: fontInputSize() + 'px'
+      }"
+      (focus)="focused.set(true)"
+      (blur)="focused.set(false); onTouched()"
+      [value]="value()"
+      (input)="onInput($event.target.value)"
+      (blur)="onTouched(); isTouched.set(true)"
+      (paste)="onBeforePaste($event)"
+      (beforeinput)="onBeforeInput($event)"
+      [disabled]="isDisabled()"
+    >
+    @if (value() && showClearIcon()) {
+      <icon-clear 
+        (click)="onInput('')" 
+        class="icon-clear"
+      />
+    }
+  </div>
+
+</div>

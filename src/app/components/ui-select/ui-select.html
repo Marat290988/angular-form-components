@@ -1,0 +1,62 @@
+<div 
+  class="ui-select"
+  #trigger
+  (click)="toggleDropdown(trigger)"
+  tabindex="0"
+  [ngStyle]="{
+    cursor: isDisabled() ? '' : 'pointer',
+    pointerEvents: isDisabled() ? 'none' : ''
+  }"
+  [ngClass]="[
+    value() ? 'non-empty' : '',
+    isDisabled() ? 'disabled' : ''
+  ]"
+>
+  <div 
+    class="label-wrapper"
+    [ngStyle]="{
+      minHeight: fontInputSize() * 0.8 + 'px'
+    }"
+  >
+    <label 
+      class="ui-select-label"
+      [ngStyle]="{
+        fontSize: fontInputSize() * 0.8 + 'px'
+      }"
+    >
+      {{ labelName() }}@if (isRequired()) {<span>*</span> }
+    </label>
+  </div>
+  <div class="value-wrapper">
+    <div 
+      class="value"
+      [ngStyle]="{
+        fontSize: fontInputSize() + 'px',
+        minHeight: 22.67 + 'px'
+      }"
+    >
+      @if (showValue()) {
+        {{ showValue() }}
+      }
+    </div>
+    <icon-arrow-down 
+      class="icon-arrow-down"
+    />
+  </div>
+</div>
+
+<ng-template #dropdown>
+  <div class="dropdown-panel">
+    @for (option of options(); track option) {
+      <div
+        class="dropdown-option"
+        [ngStyle]="{
+          fontSize: fontInputSize() + 'px'
+        }"
+        (click)="selectOption(option.value)"
+      >
+        {{ option.title }}
+      </div>
+    } 
+  </div>
+</ng-template>
