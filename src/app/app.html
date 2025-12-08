@@ -1,22 +1,22 @@
-<div class="container">
-  FORMS
-  <form [formGroup]="formGroup">
-    <div class="input-wrapper">
-      <ui-input 
-        [formControl]="formGroup.controls.inputControl"
-        [showClearIcon]="true"
-        [isOnlyNumber]="true"
-        [fractionDigits]="2"
-      />
-    </div>
-    <div class="input-wrapper">
-      <ui-select 
-        [formControl]="formGroup.controls.selectControl"
-        [options]="options"
-      />
-    </div>
-    <div class="input-wrapper">
-      <ui-datepicker />
-    </div>
-  </form>
+<div class="main-content">
+	<header class="header">
+		<icon-menu class="menu-icon" (click)="isOpen.set(!isOpen())" #menuIcon />
+		<h1>Form Components</h1>
+	</header>
+	<main>
+		<nav class="navigation" [ngClass]="[isOpen() ? 'open' : '']" #nav>
+			@for (item of navList; track $index) {
+			<div class="nav-item" [routerLink]="item.path" routerLinkActive="active">
+				<a>{{ item.label }}</a>
+			</div>
+			}
+			<div class="footer">
+				Developed by Marat Zinatulin<br />
+				zinatulinmarat@gmail.com
+			</div>
+		</nav>
+		<div class="display-content">
+			<router-outlet />
+		</div>
+	</main>
 </div>

@@ -1,0 +1,13 @@
+<div class="select-page">
+  <h3>Select Component</h3>
+  <pre>
+    <code 
+      [highlight]="code"
+      [language]="'ts'"
+      >
+    </code>
+  </pre>
+  <form [formGroup]="formGroup">
+    <ui-select [labelName]="'Select Test'" [formControl]="formGroup.controls.selectControl" [options]="options" />
+  </form>
+</div>

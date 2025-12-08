@@ -1,0 +1,41 @@
+<div class="action-page page-content">
+	<h3>Components in Action</h3>
+	<div>
+		<button class="btn" (click)="openAddProductDialog()">Add Product</button>
+	</div>
+	<div class="products">
+		<div class="table-wrapper">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="width: 40px" class="center">No.</th>
+						<th>Priduct Name</th>
+						<th style="width: 60px" class="center">Quantity</th>
+						<th>Sum</th>
+						<th>Category</th>
+						<th>Date of Sale</th>
+						<th style="width: 60px" class="center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(pr of products(); let index = $index; track index) {
+					<tr>
+						<td class="center">{{ index + 1 }}</td>
+						<td>{{ pr.name }}</td>
+						<td class="center">{{ pr.quantity }}</td>
+						<td>{{ pr.price * pr.quantity | spaceCurrency }}</td>
+						<td>{{ codeName[pr.category] }}</td>
+						<td>{{ pr.dateOfSale | date : 'dd/MM/yyyy' }}</td>
+						<td>
+							<div class="actions">
+								<button class="btn" (click)="editProduct(index)">Edit</button>
+								<button class="btn danger" (click)="deleteProduct(index)">Delete</button>
+							</div>
+						</td>
+					</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+.add-edit-product {
+	display: flex;
+	padding: 12px;
+	flex-direction: column;
+	gap: 12px;
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+}

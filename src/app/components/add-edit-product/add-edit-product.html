@@ -1,0 +1,32 @@
+<div class="add-edit-product">
+	<h3>Add/Edit Product</h3>
+	<form [formGroup]="form">
+		<div class="form-row">
+			<ui-input [formControl]="form.controls[FORM_NAMES.NAME]" labelName="Name" />
+		</div>
+		<div class="form-row">
+			<ui-input
+				[formControl]="form.controls[FORM_NAMES.PRICE]"
+				labelName="Price"
+				[isOnlyNumber]="true"
+				[fractionDigits]="2" />
+		</div>
+		<div class="form-row">
+			<ui-input
+				[formControl]="form.controls[FORM_NAMES.QUANTITY]"
+				labelName="Quantity"
+				[isOnlyNumber]="true"
+				[fractionDigits]="0" />
+		</div>
+		<div class="form-row">
+			<ui-select [labelName]="'Category'" [formControl]="form.controls[FORM_NAMES.CATEGORY]" [options]="options" />
+		</div>
+		<div class="form-row">
+			<ui-datepicker [labelName]="'Date of Sale'" [formControl]="form.controls[FORM_NAMES.DATE_OF_SALE]" />
+		</div>
+	</form>
+	<div class="buttons">
+		<button class="btn" (click)="dialogRef.close()">Cancel</button>
+		<button class="btn fill" [disabled]="isInvalid()" (click)="save()">Save</button>
+	</div>
+</div>
