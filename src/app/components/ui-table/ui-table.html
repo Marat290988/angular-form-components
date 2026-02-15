@@ -1,3 +1,26 @@
 <div class="ui-table">
-  UI TABLE
+  <p-table
+    [value]="gridData()"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        @for (columnItem of gridColumn(); track $index) {
+          <th>
+            {{ columnItem.title }}
+          </th>
+        }
+      </tr>
+    </ng-template>
+    <ng-template #body let-dateItem>
+      <tr>
+        @for (columnItem of gridColumn(); track $index) {
+          @if (columnItem.templateRef) {
+            <td>
+              <ng-container *ngTemplateOutlet="columnItem.templateRef; context: {dataItem: dateItem}"></ng-container>
+            </td>
+          }
+        }
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

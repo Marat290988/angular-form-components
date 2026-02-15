@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { UiTable } from "../../components/ui-table/ui-table";
+import { GridCellTemplate, UiTable } from "../../components/ui-table/ui-table";
+import { users } from "./mock-users";
 
 @Component({
   selector: "app-table-page",
@@ -9,7 +10,10 @@ import { UiTable } from "../../components/ui-table/ui-table";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
-    UiTable
+    UiTable,
+    GridCellTemplate
   ]
 })
-export class TablePage {}
+export class TablePage {
+  users = users;
+}
