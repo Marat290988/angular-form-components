@@ -56,7 +56,6 @@ export class AddEditProduct {
 	];
 
 	ngOnInit() {
-		console.log(this.dialogData);
 		if (this.dialogData && this.dialogData.product) {
 			this.form.patchValue({
 				[FORM_NAMES.NAME]: this.dialogData.product.name,

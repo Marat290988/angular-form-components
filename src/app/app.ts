@@ -32,6 +32,10 @@ export class App {
 		{
 			path: ROUTE_NAMES.ACTION_PAGE,
 			label: 'Components in Action'
+		},
+		{
+			path: ROUTE_NAMES.TABLE_PAGE,
+			label: 'Table'
 		}
 	];
 	private readonly destroyed$ = takeUntilDestroyed();

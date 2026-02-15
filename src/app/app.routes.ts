@@ -4,7 +4,8 @@ export const ROUTE_NAMES = {
 	INPUT_PAGE: 'input-page',
 	SELECT_PAGE: 'select-page',
 	DATE_PICKER_PAGE: 'date-picker-page',
-	ACTION_PAGE: 'action-page'
+	ACTION_PAGE: 'action-page',
+	TABLE_PAGE: 'table-page'
 };
 
 export const routes: Routes = [
@@ -28,5 +29,9 @@ export const routes: Routes = [
 	{
 		path: ROUTE_NAMES.ACTION_PAGE,
 		loadComponent: () => import('./pages/action-page/action-page').then((m) => m.ActionPage)
+	},
+	{
+		path: ROUTE_NAMES.TABLE_PAGE,
+		loadComponent: () => import('./pages/table-page/table-page').then((m) => m.TablePage)
 	}
 ];
