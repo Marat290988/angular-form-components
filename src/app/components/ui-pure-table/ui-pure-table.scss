@@ -1,0 +1,124 @@
+:host {
+	--pure-table-header-padding: 12px;
+	--pure-table-header-bg: #f8fafc;
+	--pure-table-header-hover-bg: #f1f5f9;
+	--pure-table-primary-color: #0f172a;
+	--pure-table-secondary-color: #64748b;
+	--pure-table-active-color: #2563eb;
+	--pure-table-td-font-size: 0.8rem;
+	--pure-table-th-font-size: 0.9rem;
+	--pure-table-border-color: #e2e8f0;
+	--pure-tabla-bg-row: #ffffff;
+	--pure-table-bg-row-alt: #fafafa;
+	--pure-table-bg-row-hover: #f1f5f9;
+	--pure-table-disabled: #d1d5db;
+	--pure-table-transparent-bg: transparent;
+	--pure-table-pagination-hover: #f3f4f6;
+  --pure-table-pagination-border: #d1d5db;
+  --pure-table-pagination-disabled: #d1d5db;
+	--pure-table-white-color: #ffffff;
+
+	display: block;
+	height: 100%;
+}
+
+.ui-table {
+	border: 1px solid var(--pure-table-border-color);
+	border-radius: 4px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+
+	.table-wrapper {
+		flex-grow: 1;
+		overflow: auto;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		table-layout: fixed;
+	}
+
+	&__header {
+		background-color: var(--pure-table-header-bg);
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		background-color: var(--pure-table-header-bg);
+
+		th {
+			padding: 0 var(--pure-table-header-padding);
+			font-size: var(--pure-table-th-font-size);
+
+			&:hover {
+				background-color: var(--pure-table-header-hover-bg);
+			}
+			&.active {
+				.sort-icons {
+					color: var(--pure-table-active-color);
+				}
+			}
+		}
+
+		.header-title {
+			display: flex;
+			width: 100%;
+			align-items: center;
+			transition: all 0.2s ease-in-out;
+			color: var(--pure-table-secondary-color);
+			justify-content: space-between;
+			user-select: none;
+
+			&:hover {
+				color: var(--pure-table-primary-color);
+			}
+
+			.sort-icons {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 20px;
+				height: 20px;
+				cursor: pointer;
+			}
+		}
+	}
+
+	tbody {
+		background-color: var(--pure-tabla-bg-row);
+
+		tr {
+			transition: background-color 0.2s ease-in-out;
+		}
+
+		tr:not(:last-child) {
+			border-bottom: 1px solid var(--pure-table-border-color);
+		}
+
+		tr:nth-child(2n) {
+			background-color: var(--pure-table-bg-row-alt);
+		}
+
+		tr:hover {
+			background-color: var(--pure-table-bg-row-hover);
+		}
+
+		td {
+			padding: var(--pure-table-header-padding);
+			font-size: var(--pure-table-td-font-size);
+
+			.column-number {
+				text-align: right;
+			}
+		}
+
+		.active-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 16px;
+			height: 16px;
+		}
+	}
+}

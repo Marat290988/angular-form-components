@@ -1,0 +1,94 @@
+<div class="ui-table">
+	<div class="table-wrapper">
+		<table>
+			<thead class="ui-table__header">
+				<tr>
+					@for (columnItem of gridColumn(); track $index) {
+						<th
+							[ngClass]="[
+								columnItem.thClass || '',
+								sortState()[columnItem.fieldName!] && sortState()[columnItem.fieldName!] !== 'none' ? 'active' : ''
+							]">
+							<div class="header-title">
+								@if (columnItem.templateHeaderRef) {
+									<ng-container *ngTemplateOutlet="columnItem.templateHeaderRef"></ng-container>
+								} @else {
+									{{ columnItem.title }}
+								}
+								@if (sortState()[columnItem.fieldName!]) {
+									<span class="sort-icons" (click)="sort(columnItem.fieldName!)">
+										@if (sortState()[columnItem.fieldName!] === 'none') {
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sort-icon">
+												<path d="m7 15 5 5 5-5M7 9l5-5 5 5"></path>
+											</svg>
+										} @else if (sortState()[columnItem.fieldName!] === 'asc') {
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sort-icon">
+												<path d="m18 15-6-6-6 6"></path>
+											</svg>
+										} @else {
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sort-icon">
+												<path d="m6 9 6 6 6-6"></path>
+											</svg>
+										}
+									</span>
+								}
+								<ui-table-filter />
+							</div>
+						</th>
+					}
+				</tr>
+			</thead>
+			<tbody>
+				@for (dateItem of gridDataTable(); track $index) {
+					<tr>
+						@for (columnItem of gridColumn(); track $index) {
+							<td [ngClass]="[columnItem.tdClass || '']">
+								@if (columnItem.templateCellRef) {
+									<ng-container
+										*ngTemplateOutlet="columnItem.templateCellRef; context: {dataItem: dateItem}"></ng-container>
+								} @else {
+									@if (columnItem.type === EnumColumnType.TEXT) {
+										{{ dateItem[columnItem.fieldName!] }}
+									} @else if (columnItem.type === EnumColumnType.DATE) {
+										{{ dateItem[columnItem.fieldName!] | date: 'dd.MM.yyyy' }}
+									} @else if (columnItem.type === EnumColumnType.DATETIME) {
+										{{ dateItem[columnItem.fieldName!] | date: 'dd.MM.yyyy HH:mm' }}
+									} @else if (columnItem.type === EnumColumnType.BOOLEAN) {
+										@if (dateItem[columnItem.fieldName!]) {
+											<span class="active-icon">
+												<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 13L9 17L19 7"
+														stroke="currentColor"
+														stroke-width="2"
+														stroke-linecap="round"
+														stroke-linejoin="round" />
+												</svg>
+											</span>
+										}
+									} @else if (columnItem.type === EnumColumnType.NUMBER) {
+										<div class="column-number">
+											{{ dateItem[columnItem.fieldName!] | thousandsSpace }}
+										</div>
+									} @else if (columnItem.type === EnumColumnType.DECIMAL) {
+										<div class="column-number">
+											{{ dateItem[columnItem.fieldName!] | decimalSpace }}
+										</div>
+									}
+								}
+							</td>
+						}
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+	@if (isPagebable()) {
+		<ui-pagination 
+			[totalItems]="gridData().length"
+			(pageSizeChange)="currentPage.set(1); initOptionPageQty.set($event)"
+			(pageChange)="currentPage.set($event)"
+		/>
+	}
+</div>

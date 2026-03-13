@@ -1,26 +1,38 @@
 <div class="ui-table">
-  <p-table
-    [value]="gridData()"
-  >
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        @for (columnItem of gridColumn(); track $index) {
-          <th>
-            {{ columnItem.title }}
-          </th>
-        }
-      </tr>
-    </ng-template>
-    <ng-template #body let-dateItem>
-      <tr>
-        @for (columnItem of gridColumn(); track $index) {
-          @if (columnItem.templateRef) {
-            <td>
-              <ng-container *ngTemplateOutlet="columnItem.templateRef; context: {dataItem: dateItem}"></ng-container>
-            </td>
-          }
-        }
-      </tr>
-    </ng-template>
-  </p-table>
+	<p-table [value]="gridData()">
+		<ng-template pTemplate="header" let-columns>
+			<tr>
+				@for (columnItem of gridColumn(); track $index) {
+					<th [ngClass]="[columnItem.thClass || '']">
+            @if (columnItem.templateHeaderRef) {
+              <ng-container
+                *ngTemplateOutlet="columnItem.templateHeaderRef;"></ng-container>
+            } @else {
+						  {{ columnItem.title }}
+            }
+					</th>
+				}
+			</tr>
+		</ng-template>
+		<ng-template #body let-dateItem>
+			<tr>
+				@for (columnItem of gridColumn(); track $index) {
+					<td
+            [ngClass]="[
+              columnItem.tdClass || ''
+            ]"
+          >
+						@if (columnItem.templateCellRef) {
+							<ng-container
+								*ngTemplateOutlet="columnItem.templateCellRef; context: {dataItem: dateItem}"></ng-container>
+						} @else {
+							@if (columnItem.type === EnumColumnType.TEXT) {
+                {{ dateItem[columnItem.fieldName!] }}
+              }
+						}
+					</td>
+				}
+			</tr>
+		</ng-template>
+	</p-table>
 </div>

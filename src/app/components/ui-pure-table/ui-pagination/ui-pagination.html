@@ -1,0 +1,78 @@
+<div class="ui-pagination">
+	@if (totalItems() > 0) {
+		<div class="ui-pagination__info">
+			<span class="info-text">
+				Showing <strong>{{ startIndex() }}</strong> - <strong>{{ endIndex() }}</strong> of
+				<strong>{{ totalItems() }}</strong> items
+			</span>
+		</div>
+
+		<div class="ui-pagination__controls">
+			<div class="page-size-selector">
+				<ui-select [showLabel]="false" [formControl]="pageSizeControl" [options]="pageSizeOptionsSelect()" />
+			</div>
+			<div class="page-navigation">
+				<button 
+          class="nav-btn"
+          [disabled]="!canGoPrevious()"
+          (click)="onFirst()"
+        >
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<polyline points="11 17 6 12 11 7" />
+						<polyline points="18 17 13 12 18 7" />
+					</svg>
+				</button>
+				<button 
+          class="nav-btn"
+          [disabled]="!canGoPrevious()"
+          (click)="onPrevious()"
+        >
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<polyline points="15 18 9 12 15 6" />
+					</svg>
+				</button>
+
+				<div class="page-numbers">
+					@for (page of visiblePages(); track $index) {
+						@if (page === ELLIPSIS) {
+							<span class="ellipsis">...</span>
+						} @else {
+							<button 
+                class="page-btn"
+                [class.active]="page === currentPage()"
+                (click)="onPageChange(page)"
+              >
+								{{ page }}
+							</button>
+						}
+					}
+				</div>
+
+				<button 
+          class="nav-btn"
+          [disabled]="!canGoNext()"
+          (click)="onNext()"
+        >
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<polyline points="9 18 15 12 9 6" />
+					</svg>
+				</button>
+
+				<button 
+          class="nav-btn"
+          [disabled]="!canGoNext()"
+          (click)="onLast()"
+        >
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<polyline points="13 17 18 12 13 7" />
+						<polyline points="6 17 11 12 6 7" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	} @else {
+		<div class="pagination-info">
+			<span class="info-text">No items to display</span>
+		</div>
+	}
+</div>

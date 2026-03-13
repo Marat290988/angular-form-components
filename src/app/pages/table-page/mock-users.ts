@@ -1,119 +1,91 @@
-
 export enum UserRole {
-  ADMIN = 'ADMIN',
-  MANAGER = 'MANAGER',
-  EDITOR = 'EDITOR',
-  USER = 'USER',
-  GUEST = 'GUEST'
+	ADMIN = 'ADMIN',
+	MANAGER = 'MANAGER',
+	EDITOR = 'EDITOR',
+	USER = 'USER',
+	GUEST = 'GUEST'
 }
 
 export interface IUser {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  isActive: boolean;
-  role: UserRole; 
-  createdAt: Date;
+	id: number;
+	firstName: string;
+	lastName: string;
+	email: string;
+	isActive: boolean;
+	role: UserRole;
+	createdAt: Date;
+	messageQty: number;
+	rating: number;
 }
 
 export const userRoles = [
-  { label: 'Admin', value: UserRole.ADMIN },
-  { label: 'Manager', value: UserRole.MANAGER },
-  { label: 'Editor', value: UserRole.EDITOR },
-  { label: 'User', value: UserRole.USER },
-  { label: 'Guest', value: UserRole.GUEST }
+	{label: 'Admin', value: UserRole.ADMIN},
+	{label: 'Manager', value: UserRole.MANAGER},
+	{label: 'Editor', value: UserRole.EDITOR},
+	{label: 'User', value: UserRole.USER},
+	{label: 'Guest', value: UserRole.GUEST}
 ];
 
-export const users: IUser[] = [
-  {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@mail.com',
-    isActive: true,
-    role: UserRole.ADMIN,
-    createdAt: new Date('2024-01-10')
-  },
-  {
-    id: 2,
-    firstName: 'Anna',
-    lastName: 'Smith',
-    email: 'anna.smith@mail.com',
-    isActive: true,
-    role: UserRole.MANAGER,
-    createdAt: new Date('2024-02-12')
-  },
-  {
-    id: 3,
-    firstName: 'Mike',
-    lastName: 'Brown',
-    email: 'mike.brown@mail.com',
-    isActive: false,
-    role: UserRole.USER,
-    createdAt: new Date('2024-03-05')
-  },
-  {
-    id: 4,
-    firstName: 'Sara',
-    lastName: 'Johnson',
-    email: 'sara.johnson@mail.com',
-    isActive: true,
-    role: UserRole.EDITOR,
-    createdAt: new Date('2024-04-01')
-  },
-  {
-    id: 5,
-    firstName: 'David',
-    lastName: 'Wilson',
-    email: 'david.wilson@mail.com',
-    isActive: true,
-    role: UserRole.USER,
-    createdAt: new Date('2024-05-15')
-  },
-  {
-    id: 6,
-    firstName: 'Emily',
-    lastName: 'Taylor',
-    email: 'emily.taylor@mail.com',
-    isActive: false,
-    role: UserRole.GUEST,
-    createdAt: new Date('2024-06-20')
-  },
-  {
-    id: 7,
-    firstName: 'Daniel',
-    lastName: 'Anderson',
-    email: 'daniel.anderson@mail.com',
-    isActive: true,
-    role: UserRole.MANAGER,
-    createdAt: new Date('2024-07-08')
-  },
-  {
-    id: 8,
-    firstName: 'Olivia',
-    lastName: 'Thomas',
-    email: 'olivia.thomas@mail.com',
-    isActive: true,
-    role: UserRole.USER,
-    createdAt: new Date('2024-08-11')
-  },
-  {
-    id: 9,
-    firstName: 'James',
-    lastName: 'Jackson',
-    email: 'james.jackson@mail.com',
-    isActive: false,
-    role: UserRole.GUEST,
-    createdAt: new Date('2024-09-03')
-  },
-  {
-    id: 10,
-    firstName: 'Sophia',
-    lastName: 'White',
-    email: 'sophia.white@mail.com',
-    isActive: true,
-    role: UserRole.ADMIN,
-    createdAt: new Date('2024-10-18')
-  }
-];
+export const users: IUser[] = Array.from({length: 100}, (_, index) => {
+	const id = index + 1;
+
+	const firstNames = [
+		'John',
+		'Anna',
+		'Mike',
+		'Sara',
+		'David',
+		'Emily',
+		'Daniel',
+		'Olivia',
+		'James',
+		'Sophia',
+		'Liam',
+		'Emma',
+		'Noah',
+		'Ava',
+		'Lucas',
+		'Mia',
+		'Ethan',
+		'Amelia',
+		'Logan',
+		'Harper'
+	];
+
+	const lastNames = [
+		'Doe',
+		'Smith',
+		'Brown',
+		'Johnson',
+		'Wilson',
+		'Taylor',
+		'Anderson',
+		'Thomas',
+		'Jackson',
+		'White',
+		'Harris',
+		'Martin',
+		'Thompson',
+		'Garcia',
+		'Martinez',
+		'Robinson',
+		'Clark',
+		'Rodriguez',
+		'Lewis',
+		'Lee'
+	];
+
+	const roles = [UserRole.ADMIN, UserRole.MANAGER, UserRole.USER, UserRole.EDITOR, UserRole.GUEST];
+
+	return {
+		id,
+		firstName: firstNames[id % firstNames.length],
+		lastName: lastNames[id % lastNames.length],
+		email: `user${id}@mail.com`,
+		isActive: id % 3 !== 0,
+		role: roles[id % roles.length],
+		createdAt: new Date(2024, id % 12, (id % 28) + 1),
+		messageQty: Math.floor(Math.random() * 100000),
+		rating: Number((Math.random() * 5).toFixed(2))
+	};
+});

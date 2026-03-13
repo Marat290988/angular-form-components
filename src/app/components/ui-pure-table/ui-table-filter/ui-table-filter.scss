@@ -1,0 +1,26 @@
+.ui-table-filter {
+
+
+  .filter-icon {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+
+    &.active {
+      color: var(--pure-table-active-color);
+    }
+  }
+}
+
+.filter {
+  min-width: 250px;
+  max-width: 250px;
+  --dropdown-bg-color: #fff;
+  --dropdown-border-color: #ccc;
+  --dropdown-option-hover: #f2f2f2;
+  background: var(--dropdown-bg-color);
+  border: 1px solid var(--dropdown-border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+}

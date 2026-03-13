@@ -33,7 +33,7 @@ export class UiSelect implements ControlValueAccessor {
   private readonly overlay = inject(Overlay);
   private readonly vcr = inject(ViewContainerRef);
   private overlayRef?: OverlayRef;
-  private readonly dropdownTpl = viewChild<TemplateRef<any>>('dropdown');
+  private readonly dropdownTpl = viewChild<TemplateRef<void>>('dropdown');
   private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
@@ -42,11 +42,12 @@ export class UiSelect implements ControlValueAccessor {
       this.destroy$.next();
       this.destroy$.complete();
     });
-    effect(() => {
-      this.onChange(this.value());
-    });
+    // effect(() => {
+    //   this.onChange(this.value());
+    // });
   }
 
+  showLabel = input(true);
   labelName = input('Label Select');
   options = input.required<ISelectOption[]>();
   formControl = input.required<FormControl>();
@@ -68,6 +69,14 @@ export class UiSelect implements ControlValueAccessor {
   destroy$ = new Subject<void>();
 
   ngOnInit() {
+    if (this.formControl().value !== undefined) {
+      this.writeValue(this.formControl().value);
+    }
+    this.formControl().valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+      if (value !== this.value()) {
+        this.writeValue(value);
+      }
+    });
     this.formControl().statusChanges.pipe(takeUntil(this.destroy$)).subscribe((status) => {
       this.isDisabled.set(this.formControl().disabled);
     });
@@ -79,6 +88,9 @@ export class UiSelect implements ControlValueAccessor {
   writeValue(value: any): void {
     this.isRequired.set(this.formControl()!.hasValidator(Validators.required) ?? false);
     this.value.set(value ?? '');
+    if (this.formControl().value !== value) {
+      this.formControl().setValue(value);
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -150,7 +162,7 @@ export class UiSelect implements ControlValueAccessor {
   }
 
   selectOption(option: any) {
-    this.value.set(option);
+    this.writeValue(option);
     this.closeDropdown();
   }
 

@@ -1,19 +1,25 @@
 <div class="table-page page-content">
-	<ui-table
+	<ui-pure-table
+		[isPagebable]="true"
 		[gridData]="users"
 		[columns]="{
-			id: {title: 'ID'},
+			id: {title: 'ID', visible: true},
 			firstName: {title: 'First Name'},
-			lastName: {title: 'Last Name'},
+			lastName: {title: 'Last Name', sortable: true},
 			email: {title: 'Email'},
-			isActive: {title: 'Is Active'},
+			messageQty: {title: 'Message Qty', type: EnumColumnType.NUMBER},
+			rating: {title: 'Rating', type: EnumColumnType.DECIMAL},
+			isActive: {title: 'Is Active', sortable: true, type: EnumColumnType.BOOLEAN},
 			role: {title: 'Role'},
-			createdAt: {title: 'Created At'}
+			createdAt: {title: 'Created At', sortable: true, type: EnumColumnType.DATETIME}
 		}">
-      <ng-template gridCellTemplate="firstName" let-dataItem="dataItem" >
-        <div class="cell-content" style="font-weight: 700;">
-          {{ dataItem.firstName }}
-        </div>
-      </ng-template>
-    </ui-table>
+		<ng-template gridCellTemplate="firstName" let-dataItem="dataItem">
+			<div class="cell-content" style="font-weight: 700">
+				{{ dataItem.firstName }}
+			</div>
+		</ng-template>
+		<ng-template gridHeaderTemplate="firstName">
+			<div class="cell-content" style="color: #b42d2d; padding: 12px">NAME</div>
+		</ng-template>
+	</ui-pure-table>
 </div>

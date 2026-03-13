@@ -42,6 +42,7 @@
 	main {
 		display: flex;
 		flex: 1;
+		max-height: calc(100% - 48.67px);
 
 		.navigation {
 			height: 100%;
